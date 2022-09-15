@@ -1,11 +1,17 @@
 const Vector = require('./Vector')
 
 module.exports = class Crawler {
-  constructor({ location, velocity, acceleraction, topSpeed, width, height }) {
+  constructor({ location, velocity, acceleraction, topSpeed, width, height, color }) {
+    // physics
     this.location = new Vector(location.x, location.y) || new Vector()
     this.velocity = new Vector(velocity.x, velocity.y) || new Vector()
     this.acceleration = new Vector(acceleration.x, acceleration.y) || new Vector()
     this.topSpeed = topSpeed || 10
+    // size
+    this.width = width
+    this.height = height
+    // rendering
+    this.color = color
   }
 
   get top() {
@@ -27,6 +33,16 @@ module.exports = class Crawler {
   get center() {
     return new Vector(this.location.x + (this.width * .5), this.location.y + (this.height * .5))
   }
-
+  
+  update() {
+    this.velocity.add(this.acceleration)
+    this.velocity.max(this.topSpeed)
+    this.location.add(velocity)
+  }
+  
+  render(ctx) {
+    ctx.fillStyle = this.color
+    ctx.fillRect(this.location.x, this.location.y, this.width, this.height)
+  }
 }
 
