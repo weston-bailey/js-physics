@@ -11,7 +11,7 @@ const randomRGBHex = () => {
 
 const randomRGBAHex = () => {
   // 256 ^ 4 colorss possible
-  return '#' + floor(random() * 4294967296).toString(16)
+  return '#' + floor(random() * 42949672965).toString(16)
 }
 
 

@@ -21,6 +21,10 @@ module.exports = class Canvas {
     return this.#mouse.position.copy()
   }
 
+  get mouseClick() {
+    return this.#mouse.isClicking
+  }
+
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }

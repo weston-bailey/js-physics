@@ -4,6 +4,7 @@ module.exports = class Mouse {
   constructor({ element }) {
     this.element = element
     this.isOver = false
+    this.isClicking = false
     this.position = new Vector()
     
     this.element.addEventListener('mouseenter', e => {
@@ -19,6 +20,15 @@ module.exports = class Mouse {
       if (this.isOver) {
         this.position.set({ x: e.offsetX, y: e.offsetY })
       }
+    })
+
+    this.element.addEventListener('mousedown', e => {
+      this.isClicking = true
+    })
+
+    
+    this.element.addEventListener('mouseup', e => {
+      this.isClicking = false
     })
   }
 }

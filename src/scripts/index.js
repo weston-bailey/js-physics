@@ -2,7 +2,7 @@ require('../styles/index.css')
 const Vector = require('./Vector')
 const Canvas = require('./Canvas')
 const Crawler = require('./Crawler')
-const { randomInRange, randomRGBHex } = require('./RandLib')
+const { randomInRange, randomRGBAHex } = require('./RandLib')
 
 document.addEventListener('DOMContentLoaded', main)
 
@@ -11,13 +11,13 @@ function main() {
   
   const crawlers = []
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10000; i++) {
     crawlers.push(new Crawler({ 
         location: new Vector(randomInRange(0, vSubCanvas.width), randomInRange(0, vSubCanvas.height)),
         acceleration: new Vector(-0.001, 0.01),
-        color: randomRGBHex(),
-        width: 20,
-        height: 20
+        color: randomRGBAHex(),
+        width: 10,
+        height: 10
       })
     )
   }
@@ -30,6 +30,9 @@ function main() {
         const direction = Vector.sub(vSubCanvas.mouse, c.location)
         direction.normalize()
         direction.mult({ x: .5, y: .5 })
+        if (vSubCanvas.mouseClick) {
+          direction.mult({ x: -1, y: -1 })
+        }
         c.acceleration = direction
       })
 
