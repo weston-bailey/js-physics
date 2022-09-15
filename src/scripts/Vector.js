@@ -1,4 +1,5 @@
-const { floor, ceil, round,  sqrt } = Math
+const { floor, ceil, round, sqrt } = Math
+const { max, min, clamp } = require('./MathLib')
 
 module.exports = class Vector {
   constructor(x, y) {
@@ -10,28 +11,52 @@ module.exports = class Vector {
     return new Vector(this.x, this.y)
   }
   
-  // static operations between two vectors that return a new vector
-  static add(x, y) {
-    return x.copy().add(y)
+  // static operations that return a new vector
+  static add(operand, values) {
+    return operand.copy().add(values)
   }
 
-  static sub(x, y) {
-    return x.copy().sub(y)
+  static sub(operand, values) {
+    return operand.copy().sub(values)
   }
 
-  static mult(x, y) {
-    return x.copy().mult(y)
+  static mult(operand, values) {
+    return operand.copy().mult(values)
   }
 
-  static div(x, y) {
-    return x.copy().div(y)
+  static div(operand, values) {
+    return operand.copy().div(values)
+  }
+
+  static min(operand, values) {
+    const newVector = operand.copy()
+    newVector.set({ x: min(newVector.x, values.x), y: min(newVector.y, values.y) })
+    return newVector
+  }
+
+  static max(operand, values) { 
+    const newVector = operand.copy()
+    newVector.set({ 
+      x: max(newVector.x, values.x), 
+      y: max(newVector.y, values.y) 
+    })
+    return newVector
+  }
+
+  static clamp(operand, minValues, maxValues) {
+    const newVector = operand.copy()
+    newVector.set({ 
+      x: clamp(newVector.x, minValues.x, maxValues.x), 
+      y: clamp(newVector.y, minValues.y, maxValues.y) 
+    })
+    return newVector
   }
 
   // instance methods
   mag() {
     return sqrt(this.x * this.x + this.y * this.y)
   }
-
+ 
   floor() {
     this.x = floor(x)
     this.y = floor(y)
@@ -47,6 +72,24 @@ module.exports = class Vector {
   round() {
     this.x = round(x)
     this.y = round(y)
+    return this
+  }
+  
+  max(max) {
+    this.x = max(this.x, max)
+    this.y = max(this.y, max)
+    return this
+  }
+
+  min(min) {
+    this.x = min(this.x, min)
+    this.y = min(this.y, min)
+    return this
+  }
+
+  clamp(min, max) {
+    this.x = clamp(this.x, min, max)
+    this.y = clamp(this.y, min, max)
     return this
   }
 
@@ -83,8 +126,10 @@ module.exports = class Vector {
   normalize() {
     const mag = this.mag()
     if (mag !== 0) {
-      this.x = this.x / mag
-      this.y = this.y / mag
+      this.set({
+        x: this.x / mag,
+        y: this.y / mag
+      })
     }
     return this
   }
