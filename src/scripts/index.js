@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', main)
 class Canvas {
   #mouse
   constructor({ parent }) {
-    this.parent = parent
+    this.parent = document.querySelector(parent)
     
     // set up the canvas
     this.canvas = document.createElement('canvas')
@@ -38,10 +38,7 @@ class Canvas {
 }
 
 function main() {
-  const vSubCanvas = new Canvas({ parent: document.querySelector('#noise-1') })
-  const testVecA = new Vector(10, 10)
-  testVecA.sub(new Vector(5, 5))
-  console.log(testVecA)
+  const vSubCanvas = new Canvas({ parent: '#vector-sub' })
   const render = () => {
     // vector subtraction
     vSubCanvas.clear()
@@ -55,6 +52,5 @@ function main() {
     })
     requestAnimationFrame(render)
   }
-  render()
-  
+  render() 
 }
