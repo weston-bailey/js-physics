@@ -1,16 +1,60 @@
-// modules can be used 
-const { hello } = require('./module')
-// css file just needs to be required in the main js
 require('../styles/index.css')
-const json = require('./myJson.json')
+const Vector = require('./Vector')
+const Mouse = require('./Mouse')
 
-console.log(json)
+document.addEventListener('DOMContentLoaded', main)
 
-console.log('hello from the index')
-console.log(hello())
+class Canvas {
+  #mouse
+  constructor({ parent }) {
+    this.parent = parent
+    
+    // set up the canvas
+    this.canvas = document.createElement('canvas')
+    this.canvas.classList.add('canvas')
+    this.canvas.setAttribute('height', getComputedStyle(this.canvas)['height']) 
+    this.canvas.setAttribute('width', getComputedStyle(this.canvas)['width'])
+    this.width = this.canvas.width
+    this.height = this.canvas.height
+    this.ctx = this.canvas.getContext('2d')
+    this.parent.appendChild(this.canvas)
+    this.#mouse = new Mouse({ element: this.canvas })
+  }
 
-// regular DOM still works!
-const myBody = document.querySelector('body')
-console.log(myBody)
+  get mouse() {
+    return this.#mouse.position.copy()
+  }
 
+  clear() {
+    this.ctx.clearRect(0, 0, this.width, this.height)
+  }
 
+  drawPath(cb) {
+    const { ctx } = this
+    ctx.beginPath()
+    cb(ctx)
+    ctx.stroke()
+  }
+}
+
+function main() {
+  const vSubCanvas = new Canvas({ parent: document.querySelector('#noise-1') })
+  const testVecA = new Vector(10, 10)
+  testVecA.sub(new Vector(5, 5))
+  console.log(testVecA)
+  const render = () => {
+    // vector subtraction
+    vSubCanvas.clear()
+    vSubCanvas.drawPath(ctx => {
+      const vSubCenter = new Vector(vSubCanvas.width * .5, vSubCanvas.height * .5)
+      const vSubMouse = vSubCanvas.mouse
+      const vSub = vSubMouse.copy().sub(vSubCenter)
+
+      ctx.moveTo(vSubMouse.x, vSubMouse.y)
+      ctx.lineTo(vSub.x, vSub.y)
+    })
+    requestAnimationFrame(render)
+  }
+  render()
+  
+}
