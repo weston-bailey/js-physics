@@ -58,32 +58,32 @@ module.exports = class Vector {
   }
  
   floor() {
-    this.x = floor(x)
-    this.y = floor(y)
+    this.x = floor(this.x)
+    this.y = floor(this.y)
     return this
   }
 
   ceil() {
-    this.x = ceil(x)
-    this.y = ceil(y)
+    this.x = ceil(this.x)
+    this.y = ceil(this.y)
     return this
   }
 
   round() {
-    this.x = round(x)
-    this.y = round(y)
+    this.x = round(this.x)
+    this.y = round(this.y)
     return this
   }
   
-  max(max) {
-    this.x = max(this.x, max)
-    this.y = max(this.y, max)
+  max(maximum) {
+    this.x = max(this.x, maximum)
+    this.y = max(this.y, maximum)
     return this
   }
 
-  min(min) {
-    this.x = min(this.x, min)
-    this.y = min(this.y, min)
+  min(minimum) {
+    this.x = min(this.x, minimum)
+    this.y = min(this.y, minimum)
     return this
   }
 

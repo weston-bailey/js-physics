@@ -8,12 +8,12 @@ module.exports = class Canvas {
     // set up the canvas
     this.canvas = document.createElement('canvas')
     this.canvas.classList.add('canvas')
+    this.ctx = this.canvas.getContext('2d')
+    this.parent.appendChild(this.canvas) 
     this.canvas.setAttribute('height', getComputedStyle(this.canvas)['height']) 
     this.canvas.setAttribute('width', getComputedStyle(this.canvas)['width'])
     this.width = this.canvas.width
     this.height = this.canvas.height
-    this.ctx = this.canvas.getContext('2d')
-    this.parent.appendChild(this.canvas)
     this.#mouse = new Mouse({ element: this.canvas })
   }
 

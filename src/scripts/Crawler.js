@@ -1,12 +1,13 @@
 const Vector = require('./Vector')
 
 module.exports = class Crawler {
-  constructor({ location, velocity, acceleraction, topSpeed, width, height, color }) {
+  constructor({ location, velocity, acceleration, topSpeed, width, height, color }) {
     // physics
-    this.location = new Vector(location.x, location.y) || new Vector()
-    this.velocity = new Vector(velocity.x, velocity.y) || new Vector()
-    this.acceleration = new Vector(acceleration.x, acceleration.y) || new Vector()
+    this.location = location || new Vector()
+    this.velocity = velocity || new Vector()
+    this.acceleration = acceleration || new Vector()
     this.topSpeed = topSpeed || 10
+    this.updateQueue = []
     // size
     this.width = width
     this.height = height
@@ -34,10 +35,21 @@ module.exports = class Crawler {
     return new Vector(this.location.x + (this.width * .5), this.location.y + (this.height * .5))
   }
   
+  enqueueUpdate(cb, ...args) {
+    this.updateQueue.push(() => cb(this, ...args))
+  }
+
   update() {
+
+    while (this.updateQueue.length) {
+      this.updateQueue[0]()
+      this.updateQueue.shift()
+    }
+
     this.velocity.add(this.acceleration)
     this.velocity.max(this.topSpeed)
-    this.location.add(velocity)
+    this.location.add(this.velocity)
+    this.location.floor()
   }
   
   render(ctx) {

@@ -44,8 +44,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       hash: true,
       // any values can be injected into the html
-      title: "Custom Page Title",
-      pageHeader: "Hello World",
+      title: "Physics",
+      pageHeader: "Physics is neat",
       // define the main html file
       template: "./src/index.html",
       // where to put the webpacked html file (./dist is assumed)
