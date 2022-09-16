@@ -30,7 +30,7 @@ function main() {
         const direction = Vector.sub(vSubCanvas.mouse, c.location)
         direction.normalize()
         direction.mult({ x: .5, y: .5 })
-        if (vSubCanvas.mouseClick) {
+        if (vSubCanvas.mouseClick[0]) {
           direction.mult({ x: -1, y: -1 })
         }
         c.acceleration = direction

@@ -4,7 +4,8 @@ module.exports = class Mouse {
   constructor({ element }) {
     this.element = element
     this.isOver = false
-    this.isClicking = false
+    // [left, middle, right]
+    this.isClicking = [false, false, false]
     this.position = new Vector()
     
     this.element.addEventListener('mouseenter', e => {
@@ -23,13 +24,18 @@ module.exports = class Mouse {
     })
 
     this.element.addEventListener('mousedown', e => {
-      this.isClicking = true
+      this.isClicking[e.button] = true
     })
 
     
     this.element.addEventListener('mouseup', e => {
-      this.isClicking = false
+      this.isClicking[e.button] = false
     })
+    // disables center and right click mouse behavior
+    this.element.addEventListener('contextmenu', e => {
+      e.preventDefault()
+      return false
+    }, false)
   }
 }
 
