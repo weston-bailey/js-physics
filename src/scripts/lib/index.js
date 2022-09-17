@@ -1,5 +1,5 @@
 const { Mouse } = require('./Input')
-const { RectangleAxisAligned, Vector, Body } = require('./Physics')
+const { RectangleAxisAligned, Vector, Body, Gravity } = require('./Physics')
 const { Canvas } = require('./Render')
 const {
     clamp, 
@@ -17,6 +17,7 @@ module.exports = {
     RectangleAxisAligned,
     Vector,
     Body,
+    Gravity,
     // render
     Canvas,
     // utils

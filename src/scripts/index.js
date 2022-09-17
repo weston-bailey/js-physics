@@ -3,25 +3,29 @@ const {
   Vector, 
   Canvas, 
   RectangleAxisAligned, 
+  Gravity,
   randomInRange, 
-  randomRGBAHex 
+  randomRGBAHex,
+  Body, 
 } = require('./lib')
 
 document.addEventListener('DOMContentLoaded', main)
 
 function main() {
   const vSubCanvas = new Canvas({ parent: '#vector-sub' })
-  
+  const gravity = new Gravity(.5)
   const crawlers = []
 
   for (let i = 0; i < 5000; i++) {
+    const mass =randomInRange(1, 5)
     crawlers.push(new RectangleAxisAligned({ 
-        mass: 1,
+        mass,
         location: new Vector(randomInRange(0, vSubCanvas.width), randomInRange(0, vSubCanvas.height)),
         acceleration: new Vector(-0.001, 0.01),
         color: randomRGBAHex(),
-        width: 10,
-        height: 10
+        width: 2 * mass,
+        height: 2 * mass,
+        topSpeed: 20 / mass
       })
     )
   }
@@ -31,14 +35,12 @@ function main() {
     vSubCanvas.clear()
     crawlers.forEach((crawler, i) => {
         // subtracting where we want to go from where to are
-        const direction = Vector.sub(vSubCanvas.mouse, crawler.location)
-        direction.normalize()
-        direction.mult({ x: .5, y: .5 })
+        const gravForce = gravity.calculate(new Body({ location: vSubCanvas.mouse, mass: 1}), crawler)
+        // const direction = Vector.sub(vSubCanvas.mouse, crawler)
         if (vSubCanvas.mouseClick[0]) {
-          direction.mult({ x: -1, y: -1 })
+          gravForce.mult({ x: -1, y: -1 })
         }
-        crawler.applyForce(direction)  
-
+        crawler.applyForce(gravForce)  
         crawler.update()
         crawler.render(vSubCanvas.ctx)
     })
