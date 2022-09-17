@@ -1,20 +1,25 @@
-# 📦 Webpack-Babel Vanilla Html Boilerplate
+# Js Physics
 
-This is template code to serve up a vanilla html website using node.js and webpack and babel.  The advantage being modules and all nodejs features are easily supported and are transpiled to vanilla js.
-
-It is possible to either build a SPA or use multiple html files.
+Physics is fun!
 
 ## Getting started
 
 * fork and clone this repo
 * cd into the directory and run `npm i` to download the required packages
-* use `npm run start` to build and serve the application 
+* use `npm run start` to build and serve the the developement application 
 * Navigate to `localhost:3000` to see the site
 * use `npm run test-all` to run all tests in the `./tests` folder
+* use `npm run build` to build a deployment
 
 > `./src` contains dev code and the output of webpack can be found in `./dist`
 
 ---
+
+## Sources
+
+* [the nature of code](https://natureofcode.com/book/)
+* [collisions/physics](https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics)
+* [more collisions](https://www.jeffreythompson.org/collision-detection/table_of_contents.php)
 
 #### The following scripts can be run from the `package.json`
 
@@ -33,21 +38,3 @@ It is possible to either build a SPA or use multiple html files.
 `npm run test-all` 
 
 > runs all tests found with the filenameing convention `fileName.test.extension`
-
-## Dependencies 
-
-* [webpack](https://webpack.js.org/) -- used to bundle the website together
-* [webpack-cli](https://webpack.js.org/api/cli/) -- used to build the website
-* [webpack-html-plugin](https://webpack.js.org/plugins/html-webpack-plugin/) -- webpack plugin for building vanilla html sites
-* [css-loader (webpack)](https://webpack.js.org/loaders/css-loader/) -- webpack plugin for loading vanilla css
-* [style-loader (webpack)](https://webpack.js.org/loaders/style-loader/) -- webpack plugin for loading vanilla css
-* [babel](https://babeljs.io/) -- complies the js to ECMAscript 5
-* [mocha](https://mochajs.org/) -- for running unit tests
-* [chai](https://www.chaijs.com/) -- assertion library for testing
-
-## Todos
-
-* [x] gitignore `./dist`
-* [x] get rid of express and related dependacies
-* [ ] add scss loader to webpack
-* [ ] be able to add an arbitrary amount of html files
