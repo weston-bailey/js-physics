@@ -1,13 +1,13 @@
 const Vector = require('./Vector')
 
-module.exports = class Crawler {
-  constructor({ location, velocity, acceleration, topSpeed, width, height, color }) {
+module.exports = class RectangleAxisAligned {
+  constructor({ mass, location, velocity, acceleration, topSpeed, width, height, color }) {
     // physics
+    this.mass = mass || 1
     this.location = location || new Vector()
     this.velocity = velocity || new Vector()
     this.acceleration = acceleration || new Vector()
     this.topSpeed = topSpeed || 10
-    this.updateQueue = []
     // size
     this.width = width
     this.height = height
@@ -35,20 +35,16 @@ module.exports = class Crawler {
     return new Vector(this.location.x + (this.width * .5), this.location.y + (this.height * .5))
   }
   
-  enqueueUpdate(cb, ...args) {
-    this.updateQueue.push(() => cb(this, ...args))
+  applyForce({ x, y }) {
+    const force = new Vector(x, y).div({ x: this.mass, y: this.mass }) 
+    this.acceleration.add(force)
   }
 
   update() {
-
-    while (this.updateQueue.length) {
-      this.updateQueue[0]()
-      this.updateQueue.shift()
-    }
-
     this.velocity.add(this.acceleration)
     this.velocity.max(this.topSpeed)
     this.location.add(this.velocity)
+    this.acceleration.set({ x: 0, y: 0 })
     this.location.floor()
   }
   

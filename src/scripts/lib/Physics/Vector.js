@@ -1,5 +1,5 @@
 const { floor, ceil, round, sqrt } = Math
-const { max, min, clamp } = require('./MathLib')
+const { max, min, clamp } = require('../Utils/MathLib')
 
 module.exports = class Vector {
   constructor(x, y) {
@@ -94,8 +94,8 @@ module.exports = class Vector {
   }
 
   set({ x, y }) {
-    this.x = x || this.x
-    this.y = y || this.y
+    this.x = x
+    this.y = y
     return this
   }
 

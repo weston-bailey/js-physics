@@ -1,4 +1,4 @@
-const Mouse = require('./Mouse')
+const Mouse = require('../Input/Mouse')
 
 module.exports = class Canvas {
   #mouse

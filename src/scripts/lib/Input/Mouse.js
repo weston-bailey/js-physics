@@ -1,4 +1,4 @@
-const Vector = require('./Vector')
+const Vector = require('../Physics/Vector')
 
 module.exports = class Mouse {
   constructor({ element }) {
@@ -14,7 +14,7 @@ module.exports = class Mouse {
 
     this.element.addEventListener('mouseleave', e => {
       this.isOver = false
-      this.position.set({ x: 0, y: 0 })
+      // this.position.set({ x: 0, y: 0 })
     })
 
     this.element.addEventListener('mousemove', e => {
