@@ -1,13 +1,10 @@
+const Body = require('./Body')
 const Vector = require('./Vector')
 
-module.exports = class RectangleAxisAligned {
+module.exports = class RectangleAxisAligned extends Body {
   constructor({ mass, location, velocity, acceleration, topSpeed, width, height, color }) {
     // physics
-    this.mass = mass || 1
-    this.location = location || new Vector()
-    this.velocity = velocity || new Vector()
-    this.acceleration = acceleration || new Vector()
-    this.topSpeed = topSpeed || 10
+    super({ mass, location, velocity, acceleration, topSpeed })
     // size
     this.width = width
     this.height = height
@@ -33,19 +30,6 @@ module.exports = class RectangleAxisAligned {
 
   get center() {
     return new Vector(this.location.x + (this.width * .5), this.location.y + (this.height * .5))
-  }
-  
-  applyForce({ x, y }) {
-    const force = new Vector(x, y).div({ x: this.mass, y: this.mass }) 
-    this.acceleration.add(force)
-  }
-
-  update() {
-    this.velocity.add(this.acceleration)
-    this.velocity.max(this.topSpeed)
-    this.location.add(this.velocity)
-    this.acceleration.set({ x: 0, y: 0 })
-    this.location.floor()
   }
   
   render(ctx) {
