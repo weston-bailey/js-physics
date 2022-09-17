@@ -23,8 +23,8 @@ function main() {
         location: new Vector(randomInRange(0, vSubCanvas.width), randomInRange(0, vSubCanvas.height)),
         acceleration: new Vector(-0.001, 0.01),
         color: randomRGBAHex(),
-        width: 2 * mass,
-        height: 2 * mass,
+        width: 1.5 * mass,
+        height: 1.5 * mass,
         topSpeed: 20 / mass
       })
     )
