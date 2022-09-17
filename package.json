@@ -7,7 +7,8 @@
     "test": "mocha",
     "test-all": "mocha */*.test.js",
     "start": "webpack-dev-server --mode development --port 3000",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "deploy": "sh deploy.sh"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,8 @@
 # Js Physics
 
-Physics is fun!
+Physics is fun! 
+
+[View the deployment](https://weston-bailey.github.io/js-physics/)
 
 ## Getting started
 
@@ -9,7 +11,7 @@ Physics is fun!
 * use `npm run start` to build and serve the the developement application 
 * Navigate to `localhost:3000` to see the site
 * use `npm run test-all` to run all tests in the `./tests` folder
-* use `npm run build` to build a deployment
+* use `npm run deploy` to build a deployment and push to github pages
 
 > `./src` contains dev code and the output of webpack can be found in `./dist`
 
