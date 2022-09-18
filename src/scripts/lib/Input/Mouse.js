@@ -6,7 +6,8 @@ module.exports = class Mouse {
     this.isOver = false
     // [left, middle, right]
     this.isClicking = [false, false, false]
-    this.location = startingVector || new Vector()
+    this.startingVector = startingVector
+    this.location = startingVector.copy() || new Vector()
     
     this.element.addEventListener('mouseenter', e => {
       this.isOver = true
@@ -35,5 +36,13 @@ module.exports = class Mouse {
       e.preventDefault()
       return false
     }, false)
+  }
+
+  reset() {
+    this.location = this.startingVector.copy()
+    console.log(this.location)
+    this.isClicking = [false, false, false]
+    this.isOver = false
+    return this
   }
 }

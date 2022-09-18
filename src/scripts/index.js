@@ -11,7 +11,7 @@ const {
 
 document.addEventListener('DOMContentLoaded', main)
 
-const mouseGravity = (display) => {
+const mouseGravity = () => {
   const canvas = new Canvas({ parent: '#mouse-gravity' })
   let gravity = new Gravity({ gravity: .5 })
   let crawlers = []
@@ -22,9 +22,13 @@ const mouseGravity = (display) => {
     const minMass = Number(document.querySelector('#min-mass').value)
     const maxMass = Number(document.querySelector('#max-mass').value)
     const topSpeed = Number(document.querySelector('#top-speed').value)
+    gravity = new Gravity({ 
+      gravity: Number(document.querySelector('#gravity').value),
+      maxStrength: 50
+    })
     const randomColors = document.querySelector('#random-colors').checked
     const inputColor = document.querySelector('#color').value
-    console.log(gravity)
+    canvas.resetMouse()
 
     for (let i = 0; i < numCrawlers; i++) {
       const mass = randomInRange(minMass, maxMass)

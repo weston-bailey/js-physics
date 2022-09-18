@@ -30,6 +30,10 @@ module.exports = class Canvas {
     return this.#mouse.isClicking
   }
 
+  resetMouse() {
+    this.#mouse.reset()
+  }
+
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
