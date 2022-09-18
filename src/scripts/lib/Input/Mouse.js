@@ -6,7 +6,7 @@ module.exports = class Mouse {
     this.isOver = false
     // [left, middle, right]
     this.isClicking = [false, false, false]
-    this.position = new Vector()
+    this.location = new Vector()
     
     this.element.addEventListener('mouseenter', e => {
       this.isOver = true
@@ -14,12 +14,11 @@ module.exports = class Mouse {
 
     this.element.addEventListener('mouseleave', e => {
       this.isOver = false
-      // this.position.set({ x: 0, y: 0 })
     })
 
     this.element.addEventListener('mousemove', e => {
       if (this.isOver) {
-        this.position.set({ x: e.offsetX, y: e.offsetY })
+        this.location.set({ x: e.offsetX, y: e.offsetY })
       }
     })
 
@@ -38,10 +37,3 @@ module.exports = class Mouse {
     }, false)
   }
 }
-
-
-
-
-
-
-

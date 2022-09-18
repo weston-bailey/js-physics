@@ -37,4 +37,3 @@ module.exports = class RectangleAxisAligned extends Body {
     ctx.fillRect(this.location.x, this.location.y, this.width, this.height)
   }
 }
-

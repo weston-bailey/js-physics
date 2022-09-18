@@ -2,6 +2,7 @@ const Mouse = require('../Input/Mouse')
 
 module.exports = class Canvas {
   #mouse
+  #requestId
   constructor({ parent }) {
     this.parent = document.querySelector(parent)
     
@@ -18,7 +19,7 @@ module.exports = class Canvas {
   }
 
   get mouse() {
-    return this.#mouse.position.copy()
+    return this.#mouse.location.copy()
   }
 
   get mouseClick() {
@@ -34,5 +35,18 @@ module.exports = class Canvas {
     ctx.beginPath()
     cb(ctx)
     ctx.stroke()
+  }
+
+  render(cb) {
+    const renderRecurse = () => {
+      cb(this.ctx)
+      this.#requestId = requestAnimationFrame(renderRecurse)
+    }
+
+    this.#requestId = requestAnimationFrame(renderRecurse)
+  }
+
+  cancelRender() {
+    cancelAnimationFrame(this.#requestId)
   }
 }

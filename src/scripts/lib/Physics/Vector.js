@@ -126,9 +126,9 @@ module.exports = class Vector {
   normalize() {
     const mag = this.mag()
     if (mag !== 0) {
-      this.set({
-        x: this.x / mag,
-        y: this.y / mag
+      this.div({
+        x: mag,
+        y: mag
       })
     }
     return this
