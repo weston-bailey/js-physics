@@ -1,12 +1,12 @@
 const Vector = require('../Physics/Vector')
 
 module.exports = class Mouse {
-  constructor({ element }) {
+  constructor({ element, startingVector }) {
     this.element = element
     this.isOver = false
     // [left, middle, right]
     this.isClicking = [false, false, false]
-    this.location = new Vector()
+    this.location = startingVector || new Vector()
     
     this.element.addEventListener('mouseenter', e => {
       this.isOver = true

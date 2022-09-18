@@ -1,4 +1,5 @@
 const Mouse = require('../Input/Mouse')
+const { Vector } = require('../Physics')
 
 module.exports = class Canvas {
   #mouse
@@ -15,7 +16,10 @@ module.exports = class Canvas {
     this.canvas.setAttribute('width', getComputedStyle(this.canvas)['width'])
     this.width = this.canvas.width
     this.height = this.canvas.height
-    this.#mouse = new Mouse({ element: this.canvas })
+    this.#mouse = new Mouse({ 
+      element: this.canvas, 
+      startingVector: new Vector(this.width * .5, this.height * .5)
+    })
   }
 
   get mouse() {
