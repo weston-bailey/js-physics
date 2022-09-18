@@ -38,6 +38,11 @@ module.exports = class Canvas {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
+  background(color) {
+    this.ctx.fillStyle = color
+    this.ctx.fillRect(0, 0, this.width, this.height)
+  }
+
   drawPath(cb) {
     const { ctx } = this
     ctx.beginPath()

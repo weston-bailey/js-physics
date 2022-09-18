@@ -22,7 +22,7 @@
               <input  id="num-crawlers" type="number" value="5000" min="1">
               
               <label for="top-speed">Top Speed:</label>
-              <input  id="top-speed" type="number" value="20" step="1" min="1">
+              <input  id="top-speed" type="number" value="40" step="1" min="1">
             </div>
 
             <div>
@@ -30,18 +30,21 @@
               <input  id="min-mass" type="number" value="1" step=".5" min="1">
   
               <label for="max-mass">Maximum possible mass:</label>
-              <input  id="max-mass" type="number" value="5" step=".5" min=".5">
+              <input  id="max-mass" type="number" value="5" step=".5" min=".5" max="15">
   
               <label for="gravity">Gravity:</label>
-              <input  id="gravity" type="number" value="100" step="1" min="1">
+              <input  id="gravity" type="number" value="5" step="1" min="1">
             </div>
 
             <div>
               <label for="random-colors">Random colors:</label>
               <input id="random-colors" type="checkbox" checked>
 
-              <label for="color">Select a color:</label>
+              <label for="color">Vector Color:</label>
               <input id="color" type="color">
+
+              <label for="bg-color">Canvas Background Color:</label>
+              <input id="bg-color" type="color" value="#FFFFFF">
             </div>
             
             <button id="reset">Reset Canvas</button>

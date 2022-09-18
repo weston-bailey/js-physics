@@ -6,6 +6,7 @@ const {
   Gravity,
   randomInRange, 
   randomRGBAHex,
+  randomRGBHex,
   Body, 
 } = require('./lib')
 
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', main)
 
 const mouseGravity = () => {
   const canvas = new Canvas({ parent: '#mouse-gravity' })
+  let bgColor = '#FFFFFF'
   let gravity = new Gravity({ gravity: .5 })
   let crawlers = []
 
@@ -28,6 +30,7 @@ const mouseGravity = () => {
     })
     const randomColors = document.querySelector('#random-colors').checked
     const inputColor = document.querySelector('#color').value
+    bgColor = document.querySelector('#bg-color').value
     canvas.resetMouse()
 
     for (let i = 0; i < numCrawlers; i++) {
@@ -48,9 +51,10 @@ const mouseGravity = () => {
   const render = () => {
     // vector subtraction
     canvas.clear()
+    canvas.background(bgColor)
     crawlers.forEach((crawler, i) => {
         // subtracting where we want to go from where to are
-        const gravForce = gravity.calculate(new Body({ location: canvas.mouse, mass: 1}), crawler)
+        const gravForce = gravity.calculate(new Body({ location: canvas.mouse, mass: 10}), crawler)
         if (canvas.mouseClick[0]) {
           gravForce.mult({ x: -1, y: -1 })
         }

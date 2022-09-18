@@ -81,6 +81,12 @@ module.exports = class Vector {
     return this
   }
 
+  maxSigned(maximum) {
+    const minimum = maximum * -1
+    this.x = clamp(this.x, minimum, maximum)
+    this.y = clamp(this.y, minimum, maximum)
+  }
+
   min(minimum) {
     this.x = min(this.x, minimum)
     this.y = min(this.y, minimum)

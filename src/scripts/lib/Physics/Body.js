@@ -16,9 +16,9 @@ module.exports = class Body {
 
     update() {
         this.velocity.add(this.acceleration)
-        this.velocity.max(this.topSpeed)
+        this.velocity.maxSigned(this.topSpeed)
         this.location.add(this.velocity)
         this.acceleration.set({ x: 0, y: 0 })
-        this.location.floor()
+        // this.location.floor()
     }
 }
