@@ -10,7 +10,7 @@ module.exports = class Vector {
   copy() {
     return new Vector(this.x, this.y)
   }
-  
+
   // static operations that return a new vector
   static add(operand, values) {
     return operand.copy().add(values)

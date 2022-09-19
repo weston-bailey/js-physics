@@ -12,14 +12,9 @@ module.exports = class Canvas {
     this.canvas.classList.add('canvas')
     this.ctx = this.canvas.getContext('2d')
     this.parent.appendChild(this.canvas) 
-    this.canvas.setAttribute('height', getComputedStyle(this.canvas)['height']) 
-    this.canvas.setAttribute('width', getComputedStyle(this.canvas)['width'])
-    this.width = this.canvas.width
-    this.height = this.canvas.height
-    this.#mouse = new Mouse({ 
-      element: this.canvas, 
-      startingVector: new Vector(this.width * .5, this.height * .5)
-    })
+    this.width = 0
+    this.height = 0
+    this.init()
   }
 
   get mouse() {
@@ -28,6 +23,17 @@ module.exports = class Canvas {
 
   get mouseClick() {
     return this.#mouse.isClicking
+  }
+
+  init() {
+    this.canvas.setAttribute('height', getComputedStyle(this.canvas)['height']) 
+    this.canvas.setAttribute('width', getComputedStyle(this.canvas)['width'])
+    this.width = this.canvas.width
+    this.height = this.canvas.height
+    this.#mouse = new Mouse({ 
+      element: this.canvas, 
+      startingVector: new Vector(this.width * .5, this.height * .5)
+    })
   }
 
   resetMouse() {

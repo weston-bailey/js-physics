@@ -4,7 +4,7 @@ const { clamp } = require('../Utils')
 module.exports = class Gravity {
     constructor({ gravity, minDistance, maxDistance, minStrength, maxStrength }) {
         this.gravity = gravity
-        this.minDistance = minDistance || 5
+        this.minDistance = minDistance || .1
         this.maxDistance = maxDistance || 25
         this.minStrength = minStrength || .1
         this.maxStrength = maxStrength || 10

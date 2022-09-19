@@ -11,7 +11,15 @@
       <div class="layout-gutter"></div>
 
       <main>
-        <div id="display">
+        <h1>Physics is neat</h1>
+
+        <label for="demo-select">Select Demo:</label>
+        <select id="demo-select">
+          <option value="mouseGravity" selected>Mouse Pointer Gravity</option>
+          <option value="other">other change</option>
+        </select>
+        <div id="error" style="display: none;"></div>
+        <div id="mouse-gravity-display" style="display: none;">
           <h2>Vectors</h2>
     
           <p>that are attracted to your mouse (click to reverse gravity)</p>
@@ -22,23 +30,23 @@
               <input  id="num-crawlers" type="number" value="5000" min="1">
               
               <label for="top-speed">Top Speed:</label>
-              <input  id="top-speed" type="number" value="40" step="1" min="1">
+              <input  id="top-speed" type="number" value="30" step="1" min="1">
             </div>
 
             <div>
               <label for="min-mass">Minimum possible mass:</label>
-              <input  id="min-mass" type="number" value="1" step=".5" min="1">
+              <input  id="min-mass" type="number" value="3" step=".5" min="1">
   
               <label for="max-mass">Maximum possible mass:</label>
               <input  id="max-mass" type="number" value="5" step=".5" min=".5" max="15">
   
               <label for="gravity">Gravity:</label>
-              <input  id="gravity" type="number" value="5" step="1" min="1">
+              <input  id="gravity" type="number" value="7" step=".5" min="1">
             </div>
 
             <div>
               <label for="random-colors">Random colors:</label>
-              <input id="random-colors" type="checkbox" checked>
+              <input id="random-colors" type="checkbox">
 
               <label for="color">Vector Color:</label>
               <input id="color" type="color">
