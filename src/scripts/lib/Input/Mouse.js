@@ -40,7 +40,6 @@ module.exports = class Mouse {
 
   reset() {
     this.location = this.startingVector.copy()
-    console.log(this.location)
     this.isClicking = [false, false, false]
     this.isOver = false
     return this

@@ -20,9 +20,11 @@ module.exports = class Circle extends Body {
     render(ctx) {
         ctx.lineWidth = this.lineWidth
         ctx.strokeStyle = this.color
+        ctx.fillStyle = this.color
         ctx.beginPath()
         ctx.arc(this.location.x, this.location.y, this.radius, 0, TWO_PI)
         ctx.closePath()
+        ctx.fill()
         ctx.stroke()
     }
 }
