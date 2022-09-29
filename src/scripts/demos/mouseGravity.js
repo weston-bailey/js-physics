@@ -19,18 +19,18 @@ module.exports = () => {
   
     const init = () => {
       crawlers = []
-      const numCrawlers = Number(document.querySelector('#num-crawlers').value)
-      const minMass = Number(document.querySelector('#min-mass').value)
-      const maxMass = Number(document.querySelector('#max-mass').value)
-      const topSpeed = Number(document.querySelector('#top-speed').value)
+      const numCrawlers = Number(document.querySelector('#mg-num-crawlers').value)
+      const minMass = Number(document.querySelector('#mg-min-mass').value)
+      const maxMass = Number(document.querySelector('#mg-max-mass').value)
+      const topSpeed = Number(document.querySelector('#mg-top-speed').value)
       gravity = new Gravity({ 
-        gravity: Number(document.querySelector('#gravity').value),
+        gravity: Number(document.querySelector('#mg-gravity').value),
         maxStrength: 50
       })
-      const randomColors = document.querySelector('#random-colors').checked
-      const shape = document.querySelector('#shape')
-      const inputColor = document.querySelector('#color').value
-      bgColor = document.querySelector('#bg-color').value
+      const randomColors = document.querySelector('#mg-random-colors').checked
+      const shape = document.querySelector('#mg-shape')
+      const inputColor = document.querySelector('#mg-color').value
+      bgColor = document.querySelector('#mg-bg-color').value
       canvas.resetMouse()
       container.style.display = 'block'
       canvas.init()
@@ -81,7 +81,7 @@ module.exports = () => {
       })
     }
   
-    document.getElementById('reset').addEventListener('click', () => {
+    document.getElementById('mg-reset').addEventListener('click', () => {
       canvas.cancelRender()
       init()
       canvas.render(render)
