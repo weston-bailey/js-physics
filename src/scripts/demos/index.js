@@ -1,3 +1,4 @@
 module.exports = {
-    mouseGravity: require('./mouseGravity')
+    mouseGravity: require('./mouseGravity'),
+    clickAttractors: require('./clickAttractors')
 }

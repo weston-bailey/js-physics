@@ -17,7 +17,6 @@ module.exports = class Gravity {
         const strength = clamp((this.gravity * attractor.mass * body.mass) / (distance * distance), this.minStrength, this.maxStrength)
         force.normalize()
         force.mult({ x: strength, y: strength })
-        // console.log('distance', distance, 'strength', strength, 'x', force.x, 'y', force.y)
         return force 
     }
 }

@@ -30,7 +30,10 @@ module.exports = class Vector {
 
   static min(operand, values) {
     const newVector = operand.copy()
-    newVector.set({ x: min(newVector.x, values.x), y: min(newVector.y, values.y) })
+    newVector.set({ 
+      x: min(newVector.x, values.x), 
+      y: min(newVector.y, values.y)
+    })
     return newVector
   }
 

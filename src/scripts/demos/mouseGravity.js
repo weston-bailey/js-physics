@@ -35,20 +35,21 @@ module.exports = () => {
       container.style.display = 'block'
       canvas.init()
   
+      let CrawlerShape = RectangleAxisAligned
+      switch (shape.value) {
+        case 'square':
+          CrawlerShape = RectangleAxisAligned
+          break
+        case 'circle':
+          CrawlerShape = Circle
+          break
+        default:
+          CrawlerShape = RectangleAxisAligned
+          console.warn(`unknown shape type ${shape.value}`)
+      }
+
       for (let i = 0; i < numCrawlers; i++) {
         const mass = randomInRange(minMass, maxMass)
-        let CrawlerShape = RectangleAxisAligned
-        switch (shape.value) {
-          case 'square':
-            CrawlerShape = RectangleAxisAligned
-            break
-          case 'circle':
-            CrawlerShape = Circle
-            break
-          default:
-            CrawlerShape = RectangleAxisAligned
-            console.warn(`unknown shape type ${shape.value}`)
-        }
         crawlers.push(new CrawlerShape({ 
             mass,
             location: new Vector(randomInRange(0, canvas.width), randomInRange(0, canvas.height)),
@@ -68,9 +69,10 @@ module.exports = () => {
       // vector subtraction
       canvas.clear()
       canvas.background(bgColor)
+      const mouseBody = new Body({ location: canvas.mouse, mass: 10})
       crawlers.forEach((crawler, i) => {
           // subtracting where we want to go from where to are
-          const gravForce = gravity.calculate(new Body({ location: canvas.mouse, mass: 10}), crawler)
+          const gravForce = gravity.calculate(mouseBody, crawler)
           if (canvas.mouseClick[0]) {
             gravForce.mult({ x: -1, y: -1 })
           }
