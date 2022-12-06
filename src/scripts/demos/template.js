@@ -10,6 +10,9 @@ const {
     Circle,
   } = require('../lib')
 
+const createElement = require('./createElement.js')
+const clearElement = require('./clearElement.js')
+
 module.exports = () => {
     const canvas = new Canvas({ parent: '#div-id' })
     const container = document.querySelector('#other-div-id')    
