@@ -14,7 +14,6 @@ const createElement = require('./createElement.js')
 const clearElement = require('./clearElement.js')
 
 module.exports = demoArea => {
-	console.log(demoArea)
 	// DOM setup
 	const title = createElement('h2', demoArea, { innerText: 'Vectors'})
 	const subText = createElement('p', demoArea, { innerText: 'that are attracted to your mouse (click to reverse gravity)' })	
