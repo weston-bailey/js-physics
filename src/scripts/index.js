@@ -2,11 +2,12 @@ require('../styles/index.css')
 const demos = require('./demos')
 
 document.addEventListener('DOMContentLoaded', () => {
-	let cleanUp = demos.mouseGravity()
+	const demoArea = document.querySelector('#demo-area')
+	let cleanUp = demos.mouseGravity(demoArea)
 	document.querySelector('#demo-select').addEventListener('change', e => {
 		cleanUp()
 		if (e.target.value in demos) {
-			cleanUp = demos[e.target.value]()
+			cleanUp = demos[e.target.value](demoArea)
 		} else {
 			const errorDiv = document.querySelector('#error')
 			errorDiv.innerText = `[error] cannot show demo: ${e.target.value}`

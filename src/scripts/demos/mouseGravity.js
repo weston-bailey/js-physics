@@ -13,33 +13,58 @@ const {
 const createElement = require('./createElement.js')
 const clearElement = require('./clearElement.js')
 
-module.exports = () => {
-    const canvas = new Canvas({ parent: '#mouse-gravity' })
-    const container = document.querySelector('#mouse-gravity-display')
-    let bgColor = '#FFFFFF'
+module.exports = demoArea => {
+	console.log(demoArea)
+	// DOM setup
+	const title = createElement('h2', demoArea, { innerText: 'Vectors'})
+	const subText = createElement('p', demoArea, { innerText: 'that are attracted to your mouse (click to reverse gravity)' })	
+
+	const topDiv = createElement('div', demoArea)
+	createElement('label', topDiv, { for: 'num-crawlers', innerText: 'Number of Elements:' })
+	const numCrawlersInput = createElement('input', topDiv, { id: 'num-crawlers', type: 'number', value: 5000 })	
+	createElement('label', topDiv, { for: 'top-speed', innerText: 'Top Speed:' })
+	const topSpeedInput = createElement('input', topDiv, { id: 'top-speed', type: 'number', value: 30, step: 1 })
+	createElement('label', topDiv, { for: 'shape', innerText: 'Shape:' })
+	const shapeSelect = createElement('select', topDiv, { id: 'shape' })
+	createElement('option', shapeSelect, { value: 'square', innerText: 'square' })
+	createElement('option', shapeSelect, { value: 'circle', innerText: 'circle' })
+
+	const middleDiv = createElement('div', demoArea)
+	createElement('label', middleDiv, { for: 'min-mass', innerText: 'Minimum possible mass:' })
+	const minMassInput = createElement('input', middleDiv, {  id: 'min-mass', type: 'number', value: 3, step: .5 })
+	createElement('label', middleDiv, { for: 'max-mass', innerText: 'Maximum possible mass:' })
+	const maxMassInput = createElement('input', middleDiv, {  id: 'max-mass', type: 'number', value: 5, step: .5 })	
+	createElement('label', middleDiv, { for: 'gravity', innerText: 'Gravity:' })
+	const gravityInput = createElement('input', middleDiv, {  id: 'gravity', type: 'number', value: 7, step: .5 })
+
+	const bottomDiv = createElement('div', demoArea)
+	createElement('label', bottomDiv, { for: 'random-colors', innerText: 'Random Colors' })
+	const randomColorInput = createElement('input', bottomDiv, {  id: 'random-colors', type: 'checkbox' })
+	createElement('label', bottomDiv, { for: 'vector-color', innerText: 'Vector Colors' })
+	const vectorColorInput = createElement('input', bottomDiv, {  id: 'vector-color', type: 'color' })
+	createElement('label', bottomDiv, { for: 'bg-color', innerText: 'Background Color:' })
+	const bgColorInput = createElement('input', bottomDiv, {  id: 'bg-color', type: 'color', value: '#FFFFFF' })
+
+	const resetButton = createElement('button', demoArea, { id: 'reset-button', innerText: 'Reset Canvas' })
+
+	// shared values
+    const canvas = new Canvas({ parent: '#demo-area' })
+    let bgColor = bgColorInput.value
     let gravity = new Gravity({ gravity: .5 })
     let crawlers = []
 
     const init = () => {
         crawlers = []
-        const numCrawlers = Number(document.querySelector('#mg-num-crawlers').value)
-        const minMass = Number(document.querySelector('#mg-min-mass').value)
-        const maxMass = Number(document.querySelector('#mg-max-mass').value)
-        const topSpeed = Number(document.querySelector('#mg-top-speed').value)
         gravity = new Gravity({
-            gravity: Number(document.querySelector('#mg-gravity').value),
+            gravity: Number(gravityInput.value),
             maxStrength: 50
         })
-        const randomColors = document.querySelector('#mg-random-colors').checked
-        const shape = document.querySelector('#mg-shape')
-        const inputColor = document.querySelector('#mg-color').value
-        bgColor = document.querySelector('#mg-bg-color').value
+        bgColor = bgColorInput.value
         canvas.resetMouse()
-        container.style.display = 'block'
         canvas.init()
 
         let CrawlerShape = RectangleAxisAligned
-        switch (shape.value) {
+        switch (shapeSelect.value) {
             case 'square':
                 CrawlerShape = RectangleAxisAligned
                 break
@@ -51,18 +76,18 @@ module.exports = () => {
                 console.warn(`unknown shape type ${shape.value}`)
         }
 
-        for (let i = 0; i < numCrawlers; i++) {
-            const mass = randomInRange(minMass, maxMass)
+        for (let i = 0; i < Number(numCrawlersInput.value); i++) {
+            const mass = randomInRange(Number(minMassInput.value), Number(maxMassInput.value))
             crawlers.push(new CrawlerShape({
                 mass,
                 location: new Vector(randomInRange(0, canvas.width), randomInRange(0, canvas.height)),
                 acceleration: new Vector(-0.001, 0.01),
-                color: randomColors ? randomRGBAHex() : inputColor,
+                color: randomColorInput.checked ? randomRGBAHex() : vectorColorInput.value,
                 // prepared for either circles or squares
                 width: 1.5 * mass,
                 height: 1.5 * mass,
                 radius: 1.5 * mass,
-                topSpeed: topSpeed / mass
+                topSpeed: Number(topSpeedInput.value) / mass
             })
             )
         }
@@ -74,7 +99,7 @@ module.exports = () => {
         canvas.background(bgColor)
         const mouseBody = new Body({ location: canvas.mouse, mass: 10 })
         crawlers.forEach((crawler, i) => {
-            // subtracting where we want to go from where to are
+            // subtracting where we want to go from where we are
             const gravForce = gravity.calculate(mouseBody, crawler)
             if (canvas.mouseClick[0]) {
                 gravForce.mult({ x: -1, y: -1 })
@@ -86,7 +111,7 @@ module.exports = () => {
         })
     }
 
-    document.getElementById('mg-reset').addEventListener('click', () => {
+	resetButton.addEventListener('click', () => {
         canvas.cancelRender()
         init()
         canvas.render(render)
@@ -96,8 +121,7 @@ module.exports = () => {
     canvas.render(render)
 
     return () => {
-        container.style.display = 'none'
         canvas.cancelRender()
-        canvas.parent.removeChild(canvas.canvas)
+		clearElement(demoArea)
     }
 }

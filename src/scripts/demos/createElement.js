@@ -1,4 +1,4 @@
-module.exports = (type, parent, props, methods) => {
+module.exports = (type, parent, props) => {
     // create the element
     const newEl = document.createElement(type)
     // set the properties

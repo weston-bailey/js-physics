@@ -1,83 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- using squiddies to inject html from the webpack.config.js file  -->
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
 
-  <body>
-    <div class="layout">
-      <div class="layout-gutter"></div>
+<head>
+	<meta charset="UTF-8">
+	<!-- using squiddies to inject html from the webpack.config.js file  -->
+	<title>
+		<%= htmlWebpackPlugin.options.title %>
+	</title>
+</head>
 
-      <main>
-        <h1>Physics is neat</h1>
+<body>
+	<div class="layout">
+		<div class="layout-gutter"></div>
 
-        <label for="demo-select">Select Demo:</label>
-        <select id="demo-select">
-          <option value="mouseGravity" selected>Mouse Pointer Gravity</option>
-          <option value="clickAttractors">Click Attractors</option>
-          <option value="other">other change</option>
-        </select>
-        <div id="error" style="display: none;"></div>
+		<main>
+			<h1>Physics is neat</h1>
 
-        <div id="mouse-gravity-display" style="display: none;">
-          <h2>Vectors</h2>
-    
-          <p>that are attracted to your mouse (click to reverse gravity)</p>
-  
-          <div>
-            <div>
-              <label for="mg-num-crawlers">Nummber of elements:</label>
-              <input  id="mg-num-crawlers" type="number" value="5000" min="1">
-              
-              <label for="mg-top-speed">Top Speed:</label>
-              <input  id="mg-top-speed" type="number" value="30" step="1" min="1">
-              
-              <label for="mg-shape">Shape:</label>
-              <select id="mg-shape">
-                <option value="square" selected>square</option>
-                <option value="circle">circle</option>
-              </select>
-            </div>
+			<label for="demo-select">Select Demo:</label>
+			<select id="demo-select">
+				<option value="mouseGravity" selected>Mouse Pointer Gravity</option>
+				<option value="clickAttractors">Click Attractors</option>
+				<option value="other">other change</option>
+			</select>
+			<div id="error" style="display: none;"></div>
 
-            <div>
-              <label for="mg-min-mass">Minimum possible mass:</label>
-              <input  id="mg-min-mass" type="number" value="3" step=".5" min="1">
-  
-              <label for="mg-max-mass">Maximum possible mass:</label>
-              <input  id="mg-max-mass" type="number" value="5" step=".5" min=".5" max="15">
-  
-              <label for="mg-gravity">Gravity:</label>
-              <input  id="mg-gravity" type="number" value="7" step=".5" min="1">
-            </div>
+			<div id="demo-area"></div>
+				<h2>Click to make attractors<h2>
 
-            <div>
-              <label for="mg-random-colors">Random colors:</label>
-              <input id="mg-random-colors" type="checkbox">
+				<div id="click-attractors"></div>
+			</div>
+		</main>
 
-              <label for="mg-color">Vector Color:</label>
-              <input id="mg-color" type="color">
+		<div class="layout-gutter"></div>
+	</div>
+</body>
 
-              <label for="mg-bg-color">Canvas Background Color:</label>
-              <input id="mg-bg-color" type="color" value="#FFFFFF">
-            </div>
-            
-            <button id="mg-reset">Reset Canvas</button>
-          </div>
-  
-          <div id="mouse-gravity"></div>
-        </div>
-        
-        <div id="click-attractors-display" style="display: none;">
-          <h2>Click to make attractors<h2>
-
-
-          <div id="click-attractors"></div>
-        </div>
-      </main>
-
-      <div class="layout-gutter"></div>
-    </div>
-  </body>
 </html>
