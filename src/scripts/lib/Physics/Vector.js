@@ -96,9 +96,9 @@ module.exports = class Vector {
     return this
   }
 
-  clamp(min, max) {
-    this.x = clamp(this.x, min, max)
-    this.y = clamp(this.y, min, max)
+  clamp(minimum, maximum) {
+    this.x = clamp(this.x, minimum, maximum)
+    this.y = clamp(this.y, minimum, maximum)
     return this
   }
 
