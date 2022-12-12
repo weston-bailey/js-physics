@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		} else {
 			const errorDiv = document.querySelector('#error')
 			demoArea.innerText = `[error] cannot show demo: ${e.target.value}`
-			errorDiv.style.display = 'block'
 			cleanUp = () => clearElement(demoArea)
 		}
 	})

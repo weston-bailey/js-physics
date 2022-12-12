@@ -16,7 +16,7 @@ const clearElement = require('./clearElement.js')
 module.exports = demoArea => {
 	// DOM setup
 	const title = createElement('h2', demoArea, { innerText: 'Vectors'})
-	const subText = createElement('p', demoArea, { innerText: 'that are attracted to your mouse (click to reverse gravity)' })	
+	const subText = createElement('p', demoArea, { innerText: 'that are attracted to where you click (right click to remove attractor)' })	
 
 	const topDiv = createElement('div', demoArea)
 	createElement('label', topDiv, { for: 'num-crawlers', innerText: 'Number of Elements:' })
@@ -49,16 +49,19 @@ module.exports = demoArea => {
 	// shared values
     const canvas = new Canvas({ parent: '#demo-area' })
     let bgColor = bgColorInput.value
-    // let gravity = new Gravity({ gravity: .5 })
+    let gravity = new Gravity({ gravity: .5 })
+	const maxAttractors = 6
+	let clickCooldown = false
 	let attractors = []
     let crawlers = []
 
     const init = () => {
         crawlers = []
-        // gravity = new Gravity({
-        //     gravity: Number(gravityInput.value),
-        //     maxStrength: 50
-        // })
+		attractors = []
+        gravity = new Gravity({
+            gravity: Number(gravityInput.value),
+            maxStrength: 50
+        })
         bgColor = bgColorInput.value
         canvas.resetMouse()
         canvas.init()
@@ -79,16 +82,16 @@ module.exports = demoArea => {
         for (let i = 0; i < Number(numCrawlersInput.value); i++) {
             const mass = randomInRange(Number(minMassInput.value), Number(maxMassInput.value))
             crawlers.push(new CrawlerShape({
-                mass,
-                location: new Vector(randomInRange(0, canvas.width), randomInRange(0, canvas.height)),
-                acceleration: new Vector(-0.001, 0.01),
-                color: randomColorInput.checked ? randomRGBAHex() : vectorColorInput.value,
-                // prepared for either circles or squares
-                width: 1.5 * mass,
-                height: 1.5 * mass,
-                radius: 1.5 * mass,
-                topSpeed: Number(topSpeedInput.value) / mass
-            })
+					mass,
+					location: new Vector(randomInRange(0, canvas.width), randomInRange(0, canvas.height)),
+					acceleration: new Vector(-0.001, 0.01),
+					color: randomColorInput.checked ? randomRGBAHex() : vectorColorInput.value,
+					// prepared for either circles or squares
+					width: 1.5 * mass,
+					height: 1.5 * mass,
+					radius: 1.5 * mass,
+					topSpeed: Number(topSpeedInput.value) / mass
+				})
             )
         }
     }
@@ -98,13 +101,38 @@ module.exports = demoArea => {
         canvas.clear()
         canvas.background(bgColor)
         // const mouseBody = new Body({ location: canvas.mouse, mass: 10 })
+		const [left, middle, right] = canvas.mouseClick
+		if (left && !clickCooldown) {
+			console.log(vectorColorInput.value)
+			clickCooldown = true
+			setTimeout(() => clickCooldown = false, 250)
+			const body = new Circle({
+				mass: 10,
+				location: canvas.mouse,
+				// 7F = 127
+				color: randomColorInput.checked ? randomRGBHex() + '7F' : vectorColorInput.value + '7F',
+				radius: 50,
+			})  
+
+			attractors.push({ body, gravity })
+			if (attractors.length > maxAttractors) {
+				attractors.shift()
+			}
+		}
+		
+		attractors.forEach(attractor => { 
+			attractor.body.render(canvas.ctx)
+		})
+
         crawlers.forEach((crawler, i) => {
             // subtracting where we want to go from where we are
+			const forces = attractors.map(attractor => attractor.gravity.calculate(attractor.body, crawler))
+			// console.log(forces)
             // const gravForce = gravity.calculate(mouseBody, crawler)
             // if (canvas.mouseClick[0]) {
             //     gravForce.mult({ x: -1, y: -1 })
             // }
-
+			forces.forEach(force => crawler.applyForce(force))
             // crawler.applyForce(gravForce)
             crawler.update()
             crawler.render(canvas.ctx)
